@@ -1,1 +1,25 @@
-
+<%= form_for (@post) do |f| %>
+ 
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br>
+ 
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <br>
+  
+  <%= f.label :category_ids, "Categories" %>
+  <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name)%>
+  <br>
+  
+  
+  <p>
+    Create a new
+    <%= f.fields_for :categories, post.categories.build do |category| %>
+      <%= category.label :name, "Category" %>
+      <%= category.text_field :name %>
+    <% end %>
+  </p>
+  <br>
+  <%= f.submit %>
+<% end %>
